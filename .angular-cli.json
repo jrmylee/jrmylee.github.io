@@ -1,7 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
+<<<<<<< HEAD
     "name": "brjrmylee"
+=======
+    "name": "jrmylee.github.io"
+>>>>>>> bb5d4b26af904e75fe133ac1c482da8ceb157182
   },
   "apps": [
     {
