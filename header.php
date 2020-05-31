@@ -21,3 +21,4 @@
     rel="stylesheet"
   />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <script type="text/javascript" src="index.js"></script>
