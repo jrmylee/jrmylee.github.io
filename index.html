@@ -4,6 +4,7 @@ async
 src="https://www.googletagmanager.com/gtag/js?id=UA-167368668-1"
 ></script>
 <script>
+<meta content="width=device-width, initial-scale=1" name="viewport" />
 window.dataLayer = window.dataLayer || [];
 function gtag() {
   dataLayer.push(arguments);
@@ -13,27 +14,16 @@ gtag("js", new Date());
 gtag("config", "UA-167368668-1");
 </script>
 <script type="text/javascript" src="index.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
 <?include "header.php" ?>
-<style>
-  body {
-    font-family: "DM Mono", monospace;
-    padding: 100px 30px 30px 30px;
-  }
-  a {
-    color: black;
-  }
-</style>
 <body>
-  <h1 class="header-name">{{Jeremy Joon-Kyu Lee}}</h1>
-  <p>
-    I'm a CS student passionate about using technology to help people better understand music.
-  </p>
-  <p>
-    I currently work for <a href="https://capeanalytics.com">Cape Analytics</a>.
-  </p>
-  <p>You can find my projects <a href="projects.html">here</a>.</p>
-  <p>Some things <a href="writing.html">I like</a>.</p>
-  <p>
-    <a href="mailto:jrmylee@berkeley.edu">jrmylee@berkeley.edu</a>
-  </p>
+  <div class="container">
+    <h1 class="header-name">{{Jeremy Joon-Kyu Lee}}</h1>
+    <p>I am a music and CS research undergrad at UC Berkeley.</p>
+    <p>You can find my work <a href="projects.html">here</a>.</p>
+    <p>Some things <a href="writing.html">I like</a>.</p>
+    <p>
+      <a href="mailto:jrmylee@berkeley.edu">jrmylee@berkeley.edu</a>
+    </p>
+  </div>
 </body>
