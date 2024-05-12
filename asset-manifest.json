@@ -1,20 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.2ae19046.css",
-    "main.js": "/static/js/main.3187110c.js",
+    "main.js": "/static/js/main.06e30b9f.js",
     "static/js/787.f7b23e46.chunk.js": "/static/js/787.f7b23e46.chunk.js",
     "static/media/widmung.mp3": "/static/media/widmung.d2f4983445ed5d77af98.mp3",
+    "static/media/Rameau.m4a": "/static/media/Rameau.bbcf6d32b93401671a53.m4a",
     "static/media/whenifallinlove.m4a": "/static/media/whenifallinlove.bf68b7c974da14946e2c.m4a",
     "static/media/head.png": "/static/media/head.33d915cbe3dbeb67de69.png",
     "static/media/sarcasm3.m4a": "/static/media/sarcasm3.2b8191e5e03abd849bca.m4a",
     "static/media/sarcasm2.m4a": "/static/media/sarcasm2.fdf16a39329edfb2b404.m4a",
     "index.html": "/index.html",
     "main.2ae19046.css.map": "/static/css/main.2ae19046.css.map",
-    "main.3187110c.js.map": "/static/js/main.3187110c.js.map",
+    "main.06e30b9f.js.map": "/static/js/main.06e30b9f.js.map",
     "787.f7b23e46.chunk.js.map": "/static/js/787.f7b23e46.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2ae19046.css",
-    "static/js/main.3187110c.js"
+    "static/js/main.06e30b9f.js"
   ]
 }
