@@ -1,0 +1,405 @@
+.work-container {
+  height: calc(100vh - 140px);
+  background-color: #1a2840;
+  overflow: hidden;
+}
+
+/* ── Video modal ─────────────────────────────────────── */
+
+.work-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.work-modal {
+  position: relative;
+  width: 90vw;
+  max-width: 860px;
+}
+
+.work-modal-video {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  outline: none;
+}
+
+.work-modal-close {
+  position: absolute;
+  top: -32px;
+  right: 0;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.work-modal-close:hover {
+  color: white;
+}
+
+.work-modal-info {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.work-modal-category {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.work-modal-title {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 155px 1fr 1fr 155px;
+  height: 100%;
+  min-height: 560px;
+}
+
+/* ── Title ──────────────────────────────────────────── */
+
+.work-title {
+  grid-area: 2 / 2 / 4 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.work-title h1 {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: clamp(4rem, 11vw, 10rem);
+  color: white;
+  margin: 0 0 10px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.work-sub {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: clamp(0.45rem, 0.75vw, 0.7rem);
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.12em;
+  margin: 0;
+}
+
+/* ── Transport ──────────────────────────────────────── */
+
+.work-transport {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.work-transport-label {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.04em;
+}
+
+.work-transport-composer {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.work-transport-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.work-play-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.work-play-btn:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.work-progress-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.work-progress-bar {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.12);
+  position: relative;
+}
+
+.work-progress-fill {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.work-time {
+  font-size: 0.58rem;
+  color: rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  flex-shrink: 0;
+}
+
+/* ── Base card ──────────────────────────────────────── */
+
+.work-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* hover overlay (shared) */
+.work-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+  transition: background 0.3s ease;
+}
+
+.work-card:hover .work-overlay {
+  background: rgba(0, 0, 0, 0.78);
+}
+
+.work-card-tag,
+.work-card-title,
+.work-card-meta,
+.work-card-desc {
+  display: block;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.25s ease 0.04s, transform 0.25s ease 0.04s;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  color: white;
+}
+
+.work-card:hover .work-card-tag,
+.work-card:hover .work-card-title,
+.work-card:hover .work-card-meta,
+.work-card:hover .work-card-desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.work-card-tag {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 4px;
+}
+
+.work-card-title {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.work-card-meta {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.work-card-desc {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.45;
+  margin-top: 6px;
+}
+
+/* ── Commercial cards ───────────────────────────────── */
+
+.work-card--commercial {
+  background-color: #1e2f47;
+}
+
+/* film frame tick marks */
+.work-card--commercial::before,
+.work-card--commercial::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.08) 0px,
+    rgba(255, 255, 255, 0.08) 8px,
+    transparent 8px,
+    transparent 14px
+  );
+}
+
+.work-card--commercial::before { top: 8px; }
+.work-card--commercial::after  { bottom: 8px; }
+
+.work-play-btn-card {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  transition: border-color 0.25s ease, color 0.25s ease;
+  z-index: 1;
+  padding-left: 3px; /* optical centering of the play triangle */
+}
+
+.work-card:hover .work-play-btn-card {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Music cards ────────────────────────────────────── */
+
+.work-card--music {
+  background-color: #0d1826;
+}
+
+.work-music-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.8) brightness(0.88);
+  transition: transform 0.45s ease, filter 0.3s ease;
+  display: block;
+}
+
+.work-card:hover .work-music-img {
+  transform: scale(1.06);
+  filter: saturate(1) brightness(0.7);
+}
+
+/* ── Research cards ─────────────────────────────────── */
+
+.work-card--research {
+  background-color: #162235;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.work-research-label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  margin-bottom: 2px;
+}
+
+.work-research-title {
+  font-size: 13px;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.3;
+}
+
+.work-research-venue {
+  font-size: 10px;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+}
+
+/* ── Grid positions ─────────────────────────────────── */
+
+/* Row 1 — commercials */
+.work-card--comm1   { grid-area: 1 / 1 / 2 / 2; }
+.work-card--comm2   { grid-area: 1 / 3 / 2 / 4; }
+.work-card--comm3   { grid-area: 1 / 5 / 2 / 6; }
+
+/* Rows 2–3 sides — music */
+.work-card--rameau    { grid-area: 2 / 1 / 3 / 2; }
+.work-card--sarcasm2  { grid-area: 2 / 5 / 3 / 6; }
+.work-card--sarcasm3  { grid-area: 3 / 1 / 4 / 2; }
+
+/* Rows 3 right + Row 4 center — research */
+.work-card--vivace   { grid-area: 3 / 5 / 4 / 6; }
+.work-card--doppler  { grid-area: 4 / 3 / 5 / 4; }
+
+/* ── Mobile ─────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .work-container {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    height: auto;
+    min-height: unset;
+  }
+
+  .work-title {
+    grid-area: auto;
+    grid-column: 1 / -1;
+    padding: 36px 20px 28px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .work-title h1 { font-size: clamp(3.5rem, 14vw, 6rem); }
+
+  .work-card--comm1, .work-card--comm2, .work-card--comm3,
+  .work-card--rameau, .work-card--sarcasm2, .work-card--sarcasm3,
+  .work-card--vivace, .work-card--doppler {
+    grid-area: auto;
+    height: 160px;
+  }
+}

@@ -1,10 +1,10 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { FaBars, } from 'react-icons/fa';
 import { Mixpanel } from './Mixpanel';
 import MainPage from './Components/MainPage';
-import A from './Components/A';
 import Links from './Components/Links';
+import Inspirations from './Components/Inspirations';
+import Work from './Components/Work';
 
 
 
@@ -13,125 +13,86 @@ function App() {
 
   const [theaterScreen, setTheaterScreen] = useState("home");
 
-  const [sidebarVisible, setSidebarVisible] = useState(!isMobile);
-
   useEffect(() => {
     document.title = "Jeremy Lee";
     Mixpanel.track("User Logged In");
-  })
-  // check mobile
-  const mapping = {
-    1: 'white-key',
-    2: 'black-key',
-    3: 'white-key',
-    4: 'black-key',
-    5: 'white-key',
-    6: 'white-key',
-    7: 'black-key',
-    8: 'white-key',
-    9: 'black-key',
-    10: 'white-key',
-    11: 'black-key',
-    12: 'white-key',
+  });
+
+  const keys = [
+    // Octave 1
+    { type: 'white-key' },                                                             // C1
+    { type: 'black-key' },                                                             // C#1
+    { type: 'white-key' },                                                             // D1
+    { type: 'black-key' },                                                             // D#1
+    { type: 'white-key' },                                                             // E1
+    { type: 'white-key' },                                                             // F1
+    { type: 'black-key' },                                                             // F#1
+    { type: 'white-key', nav: 'home', label: 'H', tooltip: 'Home' },                 // G1
+    { type: 'black-key' },                                                             // G#1
+    { type: 'white-key' },                                                             // A1
+    { type: 'black-key' },                                                             // A#1
+    { type: 'white-key' },                                                             // B1
+    // Octave 2
+    { type: 'white-key' },                                                             // C2
+    { type: 'black-key' },                                                             // C#2
+    { type: 'white-key' },                                                             // D2
+    { type: 'black-key' },                                                             // D#2
+    { type: 'white-key' },                                                             // E2
+    { type: 'white-key', nav: 'work', label: 'W', tooltip: 'Work' },                 // F2
+    { type: 'black-key' },                                                             // F#2
+    { type: 'white-key' },                                                             // G2
+    { type: 'black-key' },                                                             // G#2
+    { type: 'white-key' },                                                             // A2
+    { type: 'black-key' },                                                             // A#2
+    { type: 'white-key' },                                                             // B2
+    // Octave 3
+    { type: 'white-key' },                                                             // C3
+    { type: 'black-key' },                                                             // C#3
+    { type: 'white-key' },                                                             // D3
+    { type: 'black-key' },                                                             // D#3
+    { type: 'white-key', nav: 'inspirations', label: 'I', tooltip: 'Inspirations' }, // E3
+    { type: 'white-key' },                                                             // F3
+    { type: 'black-key' },                                                             // F#3
+    { type: 'white-key' },                                                             // G3
+    { type: 'black-key' },                                                             // G#3
+    { type: 'white-key' },                                                             // A3
+    { type: 'black-key' },                                                             // A#3
+    { type: 'white-key' },                                                             // B3
+  ];
+
+  const navigate = (screen) => {
+    Mixpanel.track(screen);
+    setTheaterScreen(screen);
   };
 
-  const getKeyboard = () => {
-    var arr = [];
-    var counter = 14;
+  const renderContent = () => {
+    if (theaterScreen === 'home') return <MainPage mixpanel={Mixpanel} isMobile={isMobile} />;
+    if (theaterScreen === 'links') return <Links mixpanel={Mixpanel} isMobile={isMobile} />;
+    if (theaterScreen === 'work') return <Work />;
+    if (theaterScreen === 'inspirations') return <Inspirations />;
+    return null;
+  };
 
-    var list1 = [
-      {
-        name: "home"
-      },
-      {},{},{},{}, {
-        name: "work"
-      }, {}, {}, {}, {}, {}, {}
-    ]
-    var list2 = [
-      {
-        name: ""
-      },
-      {},{},{},{}, {}, {}, {}, {}, {}, {}, {}
-    ]
-
-    const iterate = (list) => {
-      list.forEach(({
-        name
-      }, i) => {
-        arr.push(
-          <div 
-            className={mapping[i + 1]} 
-            id={counter}
-            style={{cursor: {name} && 'pointer'}}
-            onClick={() => {
-              if(name) {
-                Mixpanel.track(name);
-                setTheaterScreen(name);
-              }
-
-              if(isMobile){
-                setSidebarVisible(false);
-              }
-            }}
-          >
-            {name}
-        </div>);
-        counter += 1;
-      });
-    }
-
-    iterate(list1);
-    iterate(list2);
-
-    return arr;
-  }
-
-
-  const getOnTheater = () => {
-    const Content = () => {
-      if(theaterScreen == "home"){
-        return <MainPage mixpanel={Mixpanel} isMobile={isMobile} />
-      }
-      if(theaterScreen == "links"){
-        return <Links mixpanel={Mixpanel} isMobile={isMobile} />
-      }
-    }
-    return (
-      
-        <Content />
-      
-    )
-    
-  }
-  
   return (
-    <div className="flex-column container">
-      {
-          isMobile && (
-            <div style={{ }}>
-              <FaBars onClick={() => setSidebarVisible(!sidebarVisible)} style={{ position: "absolute", top: 10, left: 10, fontSize: 30 }} />
+    <div className="app-container">
+      <div className="content-area">
+        {renderContent()}
+      </div>
+      <div className="piano">
+        <div className="keyboard">
+          {keys.map((key, i) => (
+            <div
+              key={i}
+              className={`${key.type}${key.nav ? ' nav-key' : ''}`}
+              onClick={() => key.nav && navigate(key.nav)}
+              data-tooltip={key.tooltip}
+            >
+              {key.label && <span className="key-label">{key.label}</span>}
             </div>
-          )
-      }
-      {getOnTheater()}
-      {
-        sidebarVisible ?
-         (
-          <div className="piano">
-            <div className="piano-top">
-              <div className="steinway">
-                
-              </div>
-            </div>
-            <div className="keyboard">
-              {getKeyboard()}
-            </div>
-          </div>
-         ) : (
-          <></>
-         )
-      }
-  </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 

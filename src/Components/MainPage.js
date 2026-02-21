@@ -1,76 +1,29 @@
-import { recordings } from '../config/recordings';
-import { useAudioPlayer } from '../hooks/useAudioPlayer';
-import Profile from './Profile';
-import MusicPlayer from './MusicPlayer';
-import Links from './/Links';
+import { FaEnvelope, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import A from './A';
+import './MainPage.css';
 
-const quadrantStyles = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: '2rem',
-  marginLeft: '200px',
-  marginRight: '2rem',
-};
+const MainPage = ({ isMobile, mixpanel }) => (
+  <div className="home-container">
+    <div className="home-center-panel">
+      <h1 className="home-name">Jeremy Lee</h1>
 
-const mobileQuadrantStyles = {
-  display: 'grid',
-  gridTemplateColumns: '1fr',
-  gap: '2rem',
-  margin: '1rem',
-};
+      <div className="home-bio">
+        <p>
+          CEO at <a href="https://rubbrband.com">Rubbrband</a>, a modern content studio.
+        </p>
+        <p>
+          Previously, researcher at Berkeley, building software that understands music.
+          Piano student at <a href="https://sfcm.edu">SFCM</a>.
+        </p>
+      </div>
 
-const quadrantItemStyles = {
-  minHeight: '400px',
-  backgroundColor: '#e0eaf5',
-};
-
-const cardStyles = {
-  height: '100%',
-  backgroundColor: '#f1f1f1',
-  borderRadius: '3px',
-  padding: '20px 20px',
-  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)',
-};
-
-const MainPage = ({ isMobile, mixpanel }) => {
-  const { 
-    currentTrack, 
-    isPlaying, 
-    isSpinning, 
-    togglePlay,
-    setIsPlaying
-  } = useAudioPlayer(recordings[0].track);
-
-  const handleTrackEnd = () => {
-    setIsPlaying(false);
-  };
-
-  return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'white', padding: '1.25rem' }}>
-      <div style={isMobile ? mobileQuadrantStyles : quadrantStyles}>
-        <div style={quadrantItemStyles}>
-          <Profile 
-            isMobile={isMobile} 
-            style={cardStyles}
-          />
-        </div>
-        
-        <div style={quadrantItemStyles}>
-          <MusicPlayer
-            recordings={recordings}
-            currentTrack={currentTrack}
-            isPlaying={isPlaying}
-            isSpinning={isSpinning}
-            onTrackSelect={togglePlay}
-            onEnded={handleTrackEnd}
-            isMobile={isMobile}
-            mixpanel={mixpanel}
-            style={cardStyles}
-          />
-        </div>
+      <div className="home-social">
+        <A href="mailto:jeremy@rubbrband.com"><FaEnvelope /></A>
+        <A href="https://www.linkedin.com/in/jeremy-l-a90742b8/"><FaLinkedin /></A>
+        <A href="https://twitter.com/jrmyjlee"><FaTwitter /></A>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default MainPage;
