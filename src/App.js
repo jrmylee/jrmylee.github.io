@@ -74,7 +74,7 @@ const formatTime = (seconds) => {
   return minutes + ':' + remainder;
 };
 
-function PortfolioCard({ item, isPlaying, onSelect }) {
+function PortfolioCard({ item, onSelect }) {
   const content = (
     <>
       <div className="portfolio-image-wrap">
@@ -84,9 +84,6 @@ function PortfolioCard({ item, isPlaying, onSelect }) {
         <span>{item.category}</span>
         <strong>{item.title}</strong>
       </div>
-      <span className="portfolio-action" aria-hidden="true">
-        {item.type === 'music' && isPlaying ? <FaPause /> : item.type === 'link' ? '↗' : <FaPlay />}
-      </span>
     </>
   );
 
@@ -102,6 +99,19 @@ function PortfolioCard({ item, isPlaying, onSelect }) {
     <button className="portfolio-card" type="button" onClick={() => onSelect(item)}>
       {content}
     </button>
+  );
+}
+
+function MiniPiano() {
+  return (
+    <div className="mini-piano" aria-hidden="true">
+      <span className="mini-piano-white" />
+      <span className="mini-piano-white" />
+      <span className="mini-piano-white" />
+      <span className="mini-piano-white" />
+      <span className="mini-piano-black mini-piano-black--one" />
+      <span className="mini-piano-black mini-piano-black--two" />
+    </div>
   );
 }
 
@@ -179,7 +189,6 @@ function App() {
               key={item.id}
               item={item}
               onSelect={selectItem}
-              isPlaying={item.type === 'music' && item.id === activeTrackId && isPlaying}
             />
           ))}
         </div>
@@ -187,7 +196,6 @@ function App() {
 
       <section id="about" className="about-section">
         <div className="about-copy">
-          <h2>More info than you need to know:</h2>
           <p>
             I live in San Francisco and am the co-founder and CEO of{' '}
             <a href="https://rubbrband.com">Rubbrband</a>, a modern content studio. We build AI tools for
@@ -206,7 +214,6 @@ function App() {
 
         <aside className="about-links" aria-label="Contact and profile links">
           <p className="role">Co-founder &amp; CEO, Rubbrband</p>
-          <h2>ONLINE/OFFLINE</h2>
           <a href="mailto:jeremy@rubbrband.com">Email</a>
           <a href="https://www.linkedin.com/in/jeremy-l-a90742b8/">LinkedIn</a>
           <a href="https://twitter.com/jrmyjlee">Twitter / X</a>
@@ -215,7 +222,10 @@ function App() {
       </section>
 
       <footer className="footer">
-        <span>© {new Date().getFullYear()} Jeremy Lee</span>
+        <div className="footer-mark">
+          <MiniPiano />
+          <span>© {new Date().getFullYear()} Jeremy Lee</span>
+        </div>
         <a href="#top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to top ↑</a>
       </footer>
 

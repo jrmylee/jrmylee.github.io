@@ -82,12 +82,6 @@ a {
   font-size: 11px;
   font-weight: 700;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
-
-.skip-to-work:hover,
-.skip-to-work:focus-visible {
-  border-bottom-color: var(--ink);
 }
 
 .portfolio-section {
@@ -118,20 +112,6 @@ a {
   isolation: isolate;
 }
 
-.portfolio-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid transparent;
-  pointer-events: none;
-  transition: border-color 180ms ease;
-}
-
-.portfolio-card:hover::after,
-.portfolio-card:focus-visible::after {
-  border-color: var(--ink);
-}
-
 .portfolio-card:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
@@ -146,23 +126,18 @@ a {
 }
 
 .portfolio-image {
-  width: 82%;
-  height: 82%;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 82%;
+  max-height: 82%;
   object-fit: contain;
-  box-shadow: 0 17px 24px rgba(0, 0, 0, 0.16);
-  transition: transform 240ms ease, box-shadow 240ms ease;
-}
-
-.portfolio-card:hover .portfolio-image,
-.portfolio-card:focus-visible .portfolio-image {
-  transform: translateY(-5px);
-  box-shadow: 0 23px 30px rgba(0, 0, 0, 0.2);
 }
 
 .portfolio-caption {
   position: absolute;
   left: 18px;
-  right: 52px;
+  right: 18px;
   bottom: 16px;
   display: flex;
   flex-direction: column;
@@ -185,24 +160,6 @@ a {
   white-space: nowrap;
 }
 
-.portfolio-action {
-  position: absolute;
-  right: 18px;
-  bottom: 17px;
-  width: 22px;
-  height: 22px;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 9px;
-}
-
-.portfolio-action svg {
-  width: 7px;
-  height: 7px;
-}
-
 .about-section {
   display: grid;
   grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.75fr);
@@ -216,16 +173,10 @@ a {
   max-width: 880px;
 }
 
-.about-copy h2,
-.about-links h2,
 .film-modal h2 {
   margin: 0;
   font-size: inherit;
   line-height: inherit;
-}
-
-.about-copy h2 {
-  font-weight: 700;
 }
 
 .about-copy p,
@@ -247,12 +198,6 @@ a {
   text-underline-offset: 3px;
 }
 
-.about-copy a:hover,
-.about-links a:hover,
-.footer a:hover {
-  text-decoration-style: double;
-}
-
 .about-links {
   display: flex;
   flex-direction: column;
@@ -264,15 +209,10 @@ a {
   font-weight: 700;
 }
 
-.about-links h2 {
-  margin-bottom: 4px;
-}
-
 .about-links a {
   text-decoration: none;
 }
 
-.about-links a:hover,
 .about-links a:focus-visible {
   text-decoration: underline;
 }
@@ -290,6 +230,46 @@ a {
 
 .footer a {
   text-decoration: none;
+}
+
+.footer-mark {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.mini-piano {
+  position: relative;
+  width: 76px;
+  height: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.mini-piano-white {
+  border-left: 1px solid var(--ink);
+}
+
+.mini-piano-black {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 10px;
+  height: 18px;
+  transform: translateX(-50%);
+  background: var(--ink);
+}
+
+.mini-piano-black--one {
+  left: 25%;
+}
+
+.mini-piano-black--two {
+  left: 50%;
 }
 
 .modal-backdrop {
@@ -449,13 +429,13 @@ a {
   }
 
   .portfolio-image {
-    width: 90%;
-    height: 90%;
+    max-width: 90%;
+    max-height: 90%;
   }
 
   .portfolio-caption {
     left: 10px;
-    right: 34px;
+    right: 10px;
     bottom: 10px;
   }
 
@@ -465,13 +445,6 @@ a {
 
   .portfolio-caption strong {
     font-size: 9px;
-  }
-
-  .portfolio-action {
-    right: 9px;
-    bottom: 10px;
-    width: 18px;
-    height: 18px;
   }
 
   .about-section {
@@ -488,6 +461,12 @@ a {
 
   .footer {
     margin: 0 14px;
+  }
+
+  .footer-mark {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
   }
 
   .modal-backdrop {
@@ -510,9 +489,5 @@ a {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .portfolio-image {
-    transition: none;
   }
 }
