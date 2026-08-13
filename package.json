@@ -30,6 +30,7 @@
     "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:sites": "npm run build && node scripts/prepare-sites.mjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
