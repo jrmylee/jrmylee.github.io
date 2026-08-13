@@ -1,0 +1,94 @@
+.home-container {
+  height: calc(100vh - 140px);
+  background-color: #1a1a17;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Identity ─────────────────────────────────────── */
+
+.home-center-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.home-name {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: white;
+  margin: 0 0 10px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.home-bio {
+  font-size: clamp(0.72rem, 1vw, 0.88rem);
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.7;
+  max-width: 340px;
+  margin-bottom: 30px;
+}
+
+.home-bio p + p {
+  margin-top: 10px;
+}
+
+.home-bio a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.home-bio a:hover {
+  color: white;
+}
+
+.home-projects {
+  display: flex;
+  gap: 22px;
+  margin-bottom: 0;
+}
+
+.home-projects a {
+  font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+
+.home-projects a:hover {
+  color: white;
+}
+
+.home-social {
+  display: flex;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.home-social a {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.home-social a:hover {
+  color: white;
+}
+
+/* ── Mobile ───────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .home-container {
+    height: auto;
+    min-height: calc(100vh - 140px);
+    padding: 40px 24px;
+  }
+}
