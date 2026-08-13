@@ -1,9 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
-import { FaPause, FaPlay } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 import './App.css';
-import { recordings } from './config/recordings';
 
 const films = [
+  {
+    id: 'novig-nationwide',
+    type: 'film',
+    category: 'Directed · Novig',
+    title: 'Novig Nationwide',
+    image: 'https://static.rubbrband.com/portfolio/custom-thumb/770fe5c6-c764-4a0f-adbd-304ac4af8f0e.png',
+    video: 'https://static.rubbrband.com/portfolio/display/770fe5c6-c764-4a0f-adbd-304ac4af8f0e.mp4',
+  },
+  {
+    id: 'mutiny',
+    type: 'film',
+    category: 'Co-directed · Mutiny',
+    title: 'Mutiny',
+    image: 'https://static.rubbrband.com/portfolio/thumb/c4fa946e-e4d4-4837-ba56-4b3432898633.webp',
+    video: 'https://static.rubbrband.com/portfolio/display/c4fa946e-e4d4-4837-ba56-4b3432898633.mp4',
+  },
+  {
+    id: 'novig-points',
+    type: 'film',
+    category: 'Co-directed · Novig',
+    title: 'Novig Points',
+    image: 'https://static.rubbrband.com/portfolio/custom-thumb/8af8e1e9-9e45-4e64-a5ef-7ec29981c3d5.png',
+    video: 'https://static.rubbrband.com/portfolio/display/8af8e1e9-9e45-4e64-a5ef-7ec29981c3d5.mp4',
+  },
   {
     id: 'skillsync-work',
     type: 'film',
@@ -11,14 +33,6 @@ const films = [
     title: 'Showing engineering work the right way',
     image: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/skillsync-2_thumbnail.webp',
     video: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/skillsync-2.mp4',
-  },
-  {
-    id: 'overshoot',
-    type: 'film',
-    category: 'Directed · Overshoot',
-    title: 'Powering real-time vision',
-    image: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/overshoot_thumbnail.webp',
-    video: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/overshoot.mp4',
   },
   {
     id: 'skillsync-devs',
@@ -30,20 +44,15 @@ const films = [
   },
 ];
 
-const musicImages = {
-  rameau: 'https://cdn.midjourney.com/9529aae0-cbcf-4d68-9e56-00211cbcf071/0_3.png',
-  sarcasm2: 'https://cdn.midjourney.com/fc866df0-9e2d-4f46-bbc7-2067d8f506ac/0_1.png',
-  sarcasm3: 'https://cdn.midjourney.com/ab5ab554-59f8-457a-b6c5-7bf72d7dbe62/0_1.png',
-};
-
 const research = [
   {
     id: 'vivace',
     type: 'link',
-    category: 'Research · HAL Science, 2022',
+    category: 'Paper · AIMC, 2022',
     title: 'Vivace: real-time feedback on piano performance',
-    image: 'https://cdn.midjourney.com/83a23d01-536b-4057-bb11-2888cf0657d9/0_0.png',
-    href: 'https://hal.science/hal-03864133v1/document',
+    image: '/posters/vivace-opening-page.png',
+    href: 'https://zenodo.org/record/7088385/files/Lee_2022__Vivace__Web_Application_for_Real-Time_feedback_on_Piano_Performance.pdf',
+    presentation: 'paper',
   },
   {
     id: 'doppler',
@@ -57,24 +66,11 @@ const research = [
 
 const portfolioItems = [
   ...films,
-  ...recordings.map((recording) => ({
-    ...recording,
-    type: 'music',
-    category: 'Piano · ' + recording.composer,
-    title: recording.name,
-    image: musicImages[recording.id],
-  })),
   ...research,
 ];
 
-const formatTime = (seconds) => {
-  if (!Number.isFinite(seconds)) return '0:00';
-  const minutes = Math.floor(seconds / 60);
-  const remainder = Math.floor(seconds % 60).toString().padStart(2, '0');
-  return minutes + ':' + remainder;
-};
-
 function PortfolioCard({ item, onSelect }) {
+  const cardClassName = 'portfolio-card' + (item.presentation ? ` portfolio-card--${item.presentation}` : '');
   const content = (
     <>
       <div className="portfolio-image-wrap">
@@ -89,14 +85,14 @@ function PortfolioCard({ item, onSelect }) {
 
   if (item.type === 'link') {
     return (
-      <a className="portfolio-card" href={item.href} target="_blank" rel="noreferrer">
+      <a className={cardClassName} href={item.href} target="_blank" rel="noreferrer">
         {content}
       </a>
     );
   }
 
   return (
-    <button className="portfolio-card" type="button" onClick={() => onSelect(item)}>
+    <button className={cardClassName} type="button" onClick={() => onSelect(item)}>
       {content}
     </button>
   );
@@ -117,13 +113,6 @@ function MiniPiano() {
 
 function App() {
   const [activeFilm, setActiveFilm] = useState(null);
-  const [activeTrackId, setActiveTrackId] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [elapsed, setElapsed] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const audioRef = useRef(null);
-
-  const activeTrack = recordings.find((recording) => recording.id === activeTrackId);
 
   useEffect(() => {
     document.title = 'Jeremy Lee — Founder, director & pianist';
@@ -137,44 +126,14 @@ function App() {
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, []);
 
-  useEffect(() => {
-    if (!audioRef.current || !activeTrack) return;
-
-    if (isPlaying) {
-      audioRef.current.play().catch(() => setIsPlaying(false));
-    } else {
-      audioRef.current.pause();
-    }
-  }, [activeTrack, isPlaying]);
-
   const selectItem = (item) => {
     if (item.type === 'film') {
-      audioRef.current?.pause();
-      setIsPlaying(false);
       setActiveFilm(item);
-      return;
     }
-
-    if (item.type === 'music') {
-      if (activeTrackId === item.id) {
-        setIsPlaying((playing) => !playing);
-      } else {
-        setElapsed(0);
-        setDuration(0);
-        setActiveTrackId(item.id);
-        setIsPlaying(true);
-      }
-    }
-  };
-
-  const seek = (event) => {
-    const nextTime = Number(event.target.value);
-    if (audioRef.current) audioRef.current.currentTime = nextTime;
-    setElapsed(nextTime);
   };
 
   return (
-    <main id="top" className={'site-shell' + (activeTrack ? ' has-player' : '')}>
+    <main id="top" className="site-shell">
       <header className="hero">
         <p className="eyebrow">Selected work, 2022—2026</p>
         <h1>JEREMY LEE</h1>
@@ -208,7 +167,7 @@ function App() {
           </p>
           <p>
             I also study piano performance at the San Francisco Conservatory of Music. Most days land
-            somewhere between software, film, and Rameau.
+            somewhere between software, film, and the piano.
           </p>
         </div>
 
@@ -240,35 +199,6 @@ function App() {
         </div>
       )}
 
-      {activeTrack && (
-        <div className="audio-player" aria-label="Audio player">
-          <audio
-            ref={audioRef}
-            src={activeTrack.track}
-            onTimeUpdate={(event) => setElapsed(event.currentTarget.currentTime)}
-            onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
-            onEnded={() => setIsPlaying(false)}
-          />
-          <button type="button" onClick={() => setIsPlaying((playing) => !playing)} aria-label={isPlaying ? 'Pause' : 'Play'}>
-            {isPlaying ? <FaPause /> : <FaPlay />}
-          </button>
-          <div className="audio-details">
-            <strong>{activeTrack.name}</strong>
-            <span>{activeTrack.composer}</span>
-          </div>
-          <input
-            type="range"
-            min="0"
-            max={duration || 0}
-            step="0.1"
-            value={Math.min(elapsed, duration || 0)}
-            onChange={seek}
-            aria-label="Track position"
-          />
-          <span className="audio-time">{formatTime(elapsed)} / {formatTime(duration)}</span>
-          <button className="audio-close" type="button" onClick={() => { setIsPlaying(false); setActiveTrackId(null); }} aria-label="Close audio player">×</button>
-        </div>
-      )}
     </main>
   );
 }
