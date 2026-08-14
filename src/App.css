@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&display=swap');
+
 :root {
   --ink: #000;
   --paper: #fff;
@@ -44,40 +46,34 @@ a {
   text-align: center;
 }
 
-.eyebrow,
-.tagline,
-.skip-to-work {
+.hero-name {
   margin: 0;
-  color: var(--ink);
-}
-
-.eyebrow {
-  margin-bottom: 24px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.hero h1 {
-  margin: 0;
-  font-size: clamp(3.3rem, 7vw, 7.5rem);
+  width: min(100%, 1200px);
+  display: grid;
+  place-items: center;
+  font-family: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+  font-size: clamp(4rem, 9vw, 9rem);
   font-weight: 400;
-  letter-spacing: -0.055em;
-  line-height: 0.88;
+  letter-spacing: -0.045em;
+  line-height: 0.82;
+  cursor: default;
 }
 
-.tagline {
-  margin-top: 24px;
-  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
-  font-weight: 700;
+.hero-name span {
+  grid-area: 1 / 1;
+  white-space: nowrap;
 }
 
-.skip-to-work {
-  margin-top: 34px;
-  font-size: 11px;
-  font-weight: 700;
-  text-decoration: none;
+.hero-name-hover {
+  opacity: 0;
+}
+
+.hero-name:hover .hero-name-default {
+  opacity: 0;
+}
+
+.hero-name:hover .hero-name-hover {
+  opacity: 1;
 }
 
 .portfolio-section {
@@ -128,6 +124,17 @@ a {
   max-width: 82%;
   max-height: 82%;
   object-fit: contain;
+  box-shadow:
+    0 5px 9px rgba(0, 0, 0, 0.16),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-card--film .portfolio-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 .portfolio-card--paper .portfolio-image-wrap {
@@ -137,7 +144,6 @@ a {
 .portfolio-card--paper .portfolio-image {
   max-width: 100%;
   max-height: 100%;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
 .portfolio-caption {
@@ -278,6 +284,10 @@ a {
   left: 50%;
 }
 
+.mini-piano-black--three {
+  left: 75%;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -345,13 +355,8 @@ a {
     padding: 54px 20px 62px;
   }
 
-  .hero h1 {
-    font-size: clamp(3rem, 16vw, 5rem);
-  }
-
-  .tagline {
-    max-width: 330px;
-    line-height: 1.25;
+  .hero-name {
+    font-size: clamp(3rem, 14vw, 5rem);
   }
 
   .portfolio-section {
@@ -417,4 +422,5 @@ a {
   html {
     scroll-behavior: auto;
   }
+
 }

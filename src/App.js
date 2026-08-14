@@ -3,44 +3,28 @@ import './App.css';
 
 const films = [
   {
+    id: 'rubbrband',
+    type: 'film',
+    category: 'Director',
+    title: 'Rubbrband',
+    image: '/posters/rubbrband-hero-loop.gif?v=2',
+    video: 'https://static.rubbrband.com/landing/portfolio_videos/rubbrband-full-h264.mp4',
+  },
+  {
     id: 'novig-nationwide',
     type: 'film',
-    category: 'Directed · Novig',
+    category: 'Director',
     title: 'Novig Nationwide',
-    image: 'https://static.rubbrband.com/portfolio/custom-thumb/770fe5c6-c764-4a0f-adbd-304ac4af8f0e.png',
+    image: '/posters/novig-opening-loop.gif?v=2',
     video: 'https://static.rubbrband.com/portfolio/display/770fe5c6-c764-4a0f-adbd-304ac4af8f0e.mp4',
   },
   {
     id: 'mutiny',
     type: 'film',
-    category: 'Co-directed · Mutiny',
+    category: 'Co-director',
     title: 'Mutiny',
-    image: 'https://static.rubbrband.com/portfolio/thumb/c4fa946e-e4d4-4837-ba56-4b3432898633.webp',
+    image: '/posters/mutiny-raccoon-loop.gif?v=2',
     video: 'https://static.rubbrband.com/portfolio/display/c4fa946e-e4d4-4837-ba56-4b3432898633.mp4',
-  },
-  {
-    id: 'novig-points',
-    type: 'film',
-    category: 'Co-directed · Novig',
-    title: 'Novig Points',
-    image: 'https://static.rubbrband.com/portfolio/custom-thumb/8af8e1e9-9e45-4e64-a5ef-7ec29981c3d5.png',
-    video: 'https://static.rubbrband.com/portfolio/display/8af8e1e9-9e45-4e64-a5ef-7ec29981c3d5.mp4',
-  },
-  {
-    id: 'skillsync-work',
-    type: 'film',
-    category: 'Directed · Skillsync',
-    title: 'Showing engineering work the right way',
-    image: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/skillsync-2_thumbnail.webp',
-    video: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/skillsync-2.mp4',
-  },
-  {
-    id: 'skillsync-devs',
-    type: 'film',
-    category: 'Directed · Skillsync',
-    title: 'Find elite developers from GitHub',
-    image: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/skillsync_thumbnail.webp',
-    video: 'https://d3lz842dedkh86.cloudfront.net/landing/portfolio_videos/skillsync.mp4',
   },
 ];
 
@@ -70,7 +54,8 @@ const portfolioItems = [
 ];
 
 function PortfolioCard({ item, onSelect }) {
-  const cardClassName = 'portfolio-card' + (item.presentation ? ` portfolio-card--${item.presentation}` : '');
+  const presentation = item.presentation || item.type;
+  const cardClassName = `portfolio-card portfolio-card--${presentation}`;
   const content = (
     <>
       <div className="portfolio-image-wrap">
@@ -107,12 +92,14 @@ function MiniPiano() {
       <span className="mini-piano-white" />
       <span className="mini-piano-black mini-piano-black--one" />
       <span className="mini-piano-black mini-piano-black--two" />
+      <span className="mini-piano-black mini-piano-black--three" />
     </div>
   );
 }
 
 function App() {
   const [activeFilm, setActiveFilm] = useState(null);
+  const dayOfWeek = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date());
 
   useEffect(() => {
     document.title = 'Jeremy Lee — Founder, director & pianist';
@@ -135,10 +122,10 @@ function App() {
   return (
     <main id="top" className="site-shell">
       <header className="hero">
-        <p className="eyebrow">Selected work, 2022—2026</p>
-        <h1>JEREMY LEE</h1>
-        <p className="tagline">Founder, director, pianist—working across technology and music.</p>
-        <a className="skip-to-work" href="#work">View selected work ↓</a>
+        <h1 className="hero-name" aria-label="Jeremy Lee">
+          <span className="hero-name-default" aria-hidden="true">Jeremy Lee</span>
+          <span className="hero-name-hover" aria-hidden="true">Joon Kyu Lee</span>
+        </h1>
       </header>
 
       <section id="work" className="portfolio-section" aria-label="Selected work">
@@ -155,20 +142,17 @@ function App() {
 
       <section id="about" className="about-section">
         <div className="about-copy">
+          <p>Today is {dayOfWeek}.</p>
           <p>
-            I live in San Francisco and am the co-founder and CEO of{' '}
-            <a href="https://rubbrband.com">Rubbrband</a>, a modern content studio. We build AI tools for
-            filmmakers and make work for technology companies.
+            I live in San Francisco and am a co-founder and CEO at a creative company called{' '}
+            <a href="https://rubbrband.com">Rubbrband</a>. We make commercials for brands like Novig,
+            Commure, and other companies you might have heard of (or not).
           </p>
           <p>
-            Before that, I was an undergraduate researcher at Berkeley, building software that could
-            listen to and understand music. That work became Vivace, a web app for real-time feedback
-            on piano performance, and Doppler, a project for restoring distorted recordings with VAEs.
+            You can reach me at my email <a href="mailto:jeremy@rubbrband.com">here</a>.
           </p>
-          <p>
-            I also study piano performance at the San Francisco Conservatory of Music. Most days land
-            somewhere between software, film, and the piano.
-          </p>
+          <p>I'm not sure what else there is to say. Have a great rest of your {dayOfWeek}...</p>
+          <p>Afternoon? Evening? I don't what time it is where you are.</p>
         </div>
 
         <aside className="about-links" aria-label="Contact and profile links">
@@ -185,7 +169,7 @@ function App() {
           <MiniPiano />
           <span>© {new Date().getFullYear()} Jeremy Lee</span>
         </div>
-        <a href="#top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to top ↑</a>
+        <a href="#top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to top</a>
       </footer>
 
       {activeFilm && (
